@@ -12,6 +12,9 @@ public class 이중우선순위큐_실패 {
 //        System.out.println(Arrays.toString(solution(new String[]{"I 10", "I 20", "D 1", "I 30", "I 40", "D -1", "D -1"})));
 //        System.out.println(Arrays.toString(solution(new String[]{"I 5", "I 5", "D 1", "I 7", "D -1", "I 8"})));
         System.out.println(Arrays.toString(solution(new String[]{"D 1", "D -1", "I 0", "I -1", "I 0"})));
+        //    5
+        //  4   3
+        // 1 0 2 1 -> [0, 1, 1, 2]
     }
 
     public static int[] solution(String[] operations) {
@@ -19,8 +22,10 @@ public class 이중우선순위큐_실패 {
         int[] pq = new int[1_000_001];
         int index = 0;
         int size = 0;
-        int height = 1;
 
+        // pq [0][4][ ][ ][ ]
+        // 인덱스의 가장 마지막 값 -> 루트 노드에 삽입
+        // sort
         for (String op : operations) {
             String[] operation = op.split(" ");
             if (Objects.equals(operation[0], "I")) {
