@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-class Solution {
+class 이중우선순위큐 {
     private List<Integer> pq = new ArrayList<>();
 
     public int[] solution(String[] operations) {
