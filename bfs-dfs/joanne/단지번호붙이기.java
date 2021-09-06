@@ -7,44 +7,33 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
-
     static ArrayList<Integer> arr;
     static int[][] map;
-    static boolean[][] visited;
-    static int n;
-
-    static class Location {
-        int i;
-        int j;
-
-        public Location(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-    }
+    static int[][] visit;
+    static int N;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
 
-        map = new int[n][n];
-        visited = new boolean[n][n];
+        N = Integer.parseInt(br.readLine());
+        map = new int[N][N];
+        visit = new int[N][N];
 
-        for (int i = 0; i < n; i++) {
-            String tmp = br.readLine();
-            for (int j = 0; j < n; j++) {
-                map[i][j] = Integer.parseInt(String.valueOf(tmp.charAt(j)));
-                if(map[i][j]==0){
-                    visited[i][j] = true;
+        for (int i = 0; i < N; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < N; j++) {
+                map[i][j] = Integer.parseInt(String.valueOf(line.charAt(j)));
+                if (map[i][j] == 0) {
+                    visit[i][j] = 1;
                 }
             }
         }
 
         arr = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if(!visited[i][j]){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (visit[i][j] == 0) {
                     bfs(i, j);
                 }
             }
@@ -53,41 +42,46 @@ public class Main {
         Collections.sort(arr);
 
         System.out.println(arr.size());
-        for (int a : arr) {
-            System.out.println(a);
-        }
-
+        arr.forEach(System.out::println);
     }
 
-    public static void bfs(int i, int j){
+    private static void bfs(int i, int j) {
+        int[] dx = {0, 0, -1, 1};
+        int[] dy = {1, -1, 0, 0};
 
-        int[] mi = {0, 0, -1, 1};
-        int[] mj = {1, -1, 0, 0};
+        Queue<Pair> queue = new LinkedList<>();
 
-        Queue<Location> q = new LinkedList<>();
+        queue.offer(new Pair(i, j));
+        visit[i][j] = 1;
+        int numberOfHouse = 0;
 
-        q.add(new Location(i, j));
-        visited[i][j] = true;
-        int cnt = 0;
+        while (!queue.isEmpty()) {
+            Pair now = queue.poll();
+            numberOfHouse += 1;
 
-        while (!q.isEmpty()) {
+            for (int at = 0; at < 4; at++) {
+                int nx = now.x + dx[at];
+                int ny = now.y + dy[at];
 
-            Location now = q.poll();
-            cnt++;
+                if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
 
-            for (int d = 0; d < 4; d++) {
-                int ni = now.i + mi[d];
-                int nj = now.j + mj[d];
-
-                if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
-
-                if (!visited[ni][nj]) {
-                    visited[ni][nj] = true;
-                    q.add(new Location(ni, nj));
+                if (visit[nx][ny] == 0) {
+                    visit[nx][ny] = 1;
+                    queue.add(new Pair(nx, ny));
                 }
             }
-
         }
-        arr.add(cnt);
+
+        arr.add(numberOfHouse);
+    }
+
+    public static class Pair {
+        int x;
+        int y;
+
+        public Pair(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 }
