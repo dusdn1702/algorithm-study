@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class 매칭점수 {
     static String realWord = "";
 
     public int solution(String word, String[] pages) {

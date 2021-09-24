@@ -1,19 +1,23 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class 후보키 {
-    static List<String> index = new ArrayList<>();
-    static List<String> allIndexesUnique = new ArrayList<>();
+public class 후보키 {//1, 2, 3, 01,
+    static List<String> index = new ArrayList<>();//0, 01, 012, 0123, 1, 12, 123, 2, 23,
+    static List<String> allIndexesUnique = new ArrayList<>();//[400, apeach], [200, muji]  ...
     static List<String> result = new ArrayList<>();
 
     public int solution(String[][] relation) {
         int answer = 0;
         int column = relation.length;
         int row = relation[0].length;
+
         makeIndex(row);
         makeAllHubos(relation, column);
         Collections.sort(allIndexesUnique);
 
+        //완벽 print
+
+        //최소키 답 없음
         for (int i = 0; i < allIndexesUnique.size(); i++) {
             String s = allIndexesUnique.get(i);
 
@@ -57,6 +61,7 @@ public class 후보키 {
     }
 
     private void makeIndex(int row) {
+
         for (int i = 0; i < row; i++) {
             String now = "";
             for (int j = i; j < row; j++) {
