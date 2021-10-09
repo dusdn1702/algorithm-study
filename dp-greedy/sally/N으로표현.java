@@ -5,7 +5,6 @@ import java.util.Set;
 
 public class N으로표현 {
     public static int solution(int N, int number) {
-        int answer = 0;
         List<Set<Integer>> list = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             list.add(new HashSet<>());
@@ -29,11 +28,10 @@ public class N으로표현 {
             }
 
             if(list.get(i).contains(number)){
-                answer = i + 1;
-                break;
+                return i + 1;
             }
         }
-        return answer;
+        return -1;
     }
 
     public static void main(String[] args) {
